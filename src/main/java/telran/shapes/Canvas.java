@@ -1,54 +1,44 @@
 package telran.shapes;
 
-// import telran.util.Arrays;
+import telran.util.Arrays;
 
-public class Canvas implements Shape{
+public class Canvas implements Shape {
     Shape[] shapes;
-    
+
     public Canvas() {
         shapes = new Shape[0];
     }
-   
+
     public void addShape(Shape shape) {
         shapes = Arrays.insert(shapes, shapes.length, shape);
     }
 
     @Override
     public int perimeter() {
-        int sumOfPerimeters = 0;
-        for(Shape i : shapes) {
-            sumOfPerimeters += i.perimeter();
-        }
-        return sumOfPerimeters;
+      int res = 0;
+      for(int i = 0; i < shapes.length; i++){
+        res += shapes[i].perimeter();
+      }
+      return res;
     }
 
     @Override
     public int square() {
-        int sumOfSquares = 0;
-        for(Shape i : shapes) {
-            sumOfSquares += i.square();
+        int res = 0;
+        for(int i = 0; i < shapes.length; i++){
+          res += shapes[i].square();
         }
-        return sumOfSquares;
+        return res; 
     }
-
     public int count() {
-        int result = 0;
-        for(Shape shape : shapes) {
-            result += 1;
-            if (shape instanceof Canvas) {
-                Canvas canvasShape = (Canvas) shape;
-                int sum = canvasShape.auxCount();
-                result = result + sum;
+        int res = 0;
+        for (int i = 0; i < shapes.length; i++) {
+            if (shapes[i] instanceof Canvas canvas) { 
+                res += canvas.count(); 
             }
+            res++;
         }
-        return result;
+        return res;
     }
 
-    private int auxCount() {
-        int result = 0;
-        for(Shape shape : shapes) {
-            result += 1;
-        }
-        return result;
-    }
 }
